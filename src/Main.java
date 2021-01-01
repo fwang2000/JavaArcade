@@ -4,6 +4,5 @@ public class Main {
 
         Arcade arcade = new Arcade();
         arcade.start();
-
     }
 }

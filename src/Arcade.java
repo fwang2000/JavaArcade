@@ -1,23 +1,19 @@
-import game.domain.Game;
-import game.domain.GameSetup;
-import hangman.game.HangmanSetup;
-import pacman.game.PacmanSetup;
-import snake.game.SnakeSetup;
+import Games.GameAbstractions.GameSetup;
+import Games.Hangman.Setup.HangmanSetup;
+import Games.Pacman.Setup.PacmanSetup;
+import Games.Snake.Setup.SnakeSetup;
 
 import java.util.Scanner;
 
 public class Arcade {
 
-    private Scanner reader;
+    private Scanner scanner;
 
-    // EFFECTS: instantiates Scanner that will read
-    //          user input for methods in Arcade.
     public Arcade() {
 
-        this.reader = new Scanner(System.in);
+        this.scanner = new Scanner(System.in);
     }
 
-    // EFFECTS: Prints out game options and initializes gameChooser method
     public void start() {
 
         this.printGameOptions();
@@ -25,46 +21,35 @@ public class Arcade {
         gameSetup.playUI();
     }
 
-    // MODIFIES: this
-    // EFFECTS: Calls corresponding game based on user input
     private GameSetup chooseGame() {
 
         System.out.println("Please type which game you'd like to play:");
-
-        String gameChoice = reader.nextLine().toUpperCase().trim();
-
-        GameSetup gameSetup = this.setGameChoice(gameChoice);
-        return gameSetup;
+        String gameChoice = scanner.nextLine().toUpperCase().trim();
+        return this.setGameChoice(gameChoice);
     }
-
     // REQUIRES: String parameter
     // EFFECTS: chooses the game/website based on the input of the user
     private GameSetup setGameChoice(String choice) {
-
-        GameSetup gameSetup;
 
         while (true) {
             switch (choice) {
                 case "SNAKE":
 
-                    gameSetup = new SnakeSetup();
-                    return gameSetup;
+                    return new SnakeSetup();
 
                 case "HANGMAN":
 
-                    gameSetup = new HangmanSetup();
-                    return gameSetup;
+                    return new HangmanSetup();
 
                 case "PAC-MAN":
                 case "PACMAN":
 
-                    gameSetup = new PacmanSetup();
-                    return gameSetup;
+                    return new PacmanSetup();
 
                 default:
 
                     System.out.println("Not a valid game");
-                    choice = reader.nextLine().toUpperCase().trim();
+                    choice = scanner.nextLine().toUpperCase().trim();
                     break;
             }
         }
@@ -76,8 +61,7 @@ public class Arcade {
         System.out.println();
         System.out.println("- Snake");
         System.out.println("- Hangman");
-        System.out.println("- Pac-Man");
+        System.out.println("- Pacman");
         System.out.println();
     }
 }
-
